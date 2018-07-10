@@ -5,7 +5,11 @@
     <swiper-item><image src="/images/iqiyi.png"></image></swiper-item>
     <swiper-item><image src="/images/vr.png"></image></swiper-item>
   </swiper>
+  <!-- // 点击跳转不能写在template标签上，因为渲染时，template不会显示
+  // 根据id跳转到不同的产品详情页，属性前需要加上data- -->
   <block wx:for="{{post_key}}" wx:for-item="item" wx:key="unique">
-    <template is="post-item" data="{{...item}}"/>
+    <view catchtap="onPosttap" data-postId="{{item.postId}}">
+      <template is="post-item" data="{{...item}}"/>
+    </view>
   </block>
 </view>
