@@ -44,6 +44,10 @@ Page({
         //         developer: "playgame"
         // })
         // 如果要修改的缓存，就直接重新复制
+
+        wx.showShareMenu({ // 要求小程序返回分享目标信息 
+            withShareTicket: true 
+        }); 
     },
     onColletionTap(event) {
         let postsCollected = wx.getStorageSync('posts_Collected');
@@ -60,6 +64,39 @@ Page({
         //     collected: postCollected
         // })
         this.showToast(postsCollected, postCollected); // 必须加上this,否则报错
+    },
+    onShareTap(event) {
+        var itemList = [
+            "分享给微信好友",
+            "分享到朋友圈",
+            "分享到QQ",
+            "分享到微博"
+        ]
+        // wx.showActionSheet({
+        //     itemList: itemList,
+        //     itemColor: "#405f80",
+        //     success(res) {
+        //         // res.cancel 用户是不是点击了取消按钮
+        //         // res.tapIndex 数组元素的序号，从0开始
+        //         wx.showModal({
+        //             title: "用户" + itemList[res.tapIndex],
+        //             content: "用户是否取消"+ res.cancel +"暂时还没有分享功能"
+        //         })
+        //     }
+        // })
+        
+    },
+    onShareAppMessage (res) {
+        let that = this;
+        console.log
+        if (res.from === 'button') {
+          // 来自页面内转发按钮
+          console.log(res.target)
+        }
+        return {
+          title: '自定义转发标题',
+          path: '/pages/post/post'
+        }
     },
     showToast(postsCollected, postCollected) {
         var that = this;

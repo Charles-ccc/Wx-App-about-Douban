@@ -59,7 +59,14 @@
 }
 
 .share-img {
+    display: inline-block;
+    width: 90rpx;
+    height: 90rpx;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     margin-left: 30rpx;
+    border-radius: 50%; 
+    border: none;
 }
 
 .horizon {
