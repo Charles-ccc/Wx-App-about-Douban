@@ -3,6 +3,7 @@ var postsData = require('../../../data/posts-data.js')
 Page({
     data: {
         // 可以通过设置其他的变量来传递参数
+        isPlayingMusic: false
     },
     onLoad(option) {
         var postId = option.id; // 从url中拿到id
@@ -46,9 +47,23 @@ Page({
         // 如果要修改的缓存，就直接重新复制
 
         wx.showShareMenu({ // 要求小程序返回分享目标信息 
-            withShareTicket: true 
-        }); 
+            withShareTicket: true
+        });
+
+        // 监听音乐 总控开关同步页面开关
+        let that = this;
+        wx.onBackgroundAudioPlay(() => {
+            that.setData({
+                isPlayingMusic: true
+            })
+        })
+        wx.onBackgroundAudioPause(() => {
+            that.setData({
+                isPlayingMusic: false
+            })
+        })
     },
+    // 收藏功能
     onColletionTap(event) {
         let postsCollected = wx.getStorageSync('posts_Collected');
         // 获取当前文章是否被收藏
@@ -65,37 +80,52 @@ Page({
         // })
         this.showToast(postsCollected, postCollected); // 必须加上this,否则报错
     },
-    onShareTap(event) {
-        var itemList = [
-            "分享给微信好友",
-            "分享到朋友圈",
-            "分享到QQ",
-            "分享到微博"
-        ]
-        // wx.showActionSheet({
-        //     itemList: itemList,
-        //     itemColor: "#405f80",
-        //     success(res) {
-        //         // res.cancel 用户是不是点击了取消按钮
-        //         // res.tapIndex 数组元素的序号，从0开始
-        //         wx.showModal({
-        //             title: "用户" + itemList[res.tapIndex],
-        //             content: "用户是否取消"+ res.cancel +"暂时还没有分享功能"
-        //         })
-        //     }
-        // })
-        
-    },
-    onShareAppMessage (res) {
+    // 异步使用getStorage
+    // getPostsCollectedAsy () {
+    //     var that = this;
+    //     wx.getStorage({
+    //         key: "posts_Collected",
+    //         success(res) {
+    //             var postsCollected = res.data;
+    //             let postCollected = postsCollected[that.data.currentPostId];
+    //             postCollected = !postCollected;
+    //             postsCollected[that.data.currentPostId] = postCollected;
+    //             that.showToast(postsCollected, postCollected);
+    //         }
+    //     })
+    // }
+
+    // onShareTap(event) {
+    //     var itemList = [
+    //         "分享给微信好友",
+    //         "分享到朋友圈",
+    //         "分享到QQ",
+    //         "分享到微博"
+    //     ]
+    //     wx.showActionSheet({
+    //         itemList: itemList,
+    //         itemColor: "#405f80",
+    //         success(res) {
+    //             // res.cancel 用户是不是点击了取消按钮
+    //             // res.tapIndex 数组元素的序号，从0开始
+    //             wx.showModal({
+    //                 title: "用户" + itemList[res.tapIndex],
+    //                 content: "用户是否取消"+ res.cancel +"暂时还没有分享功能"
+    //             })
+    //         }
+    //     })
+
+    // },
+    onShareAppMessage(res) {
         let that = this;
         console.log
         if (res.from === 'button') {
-          // 来自页面内转发按钮
-          console.log(res.target)
+            // 来自页面内转发按钮
+            console.log(res.target)
         }
         return {
-          title: '自定义转发标题',
-          path: '/pages/post/post'
+            title: '自定义转发标题',
+            path: '/pages/post/post'
         }
     },
     showToast(postsCollected, postCollected) {
@@ -134,7 +164,7 @@ Page({
                 }
             }
         })
-    }
+    },
     // onShareTap(event) {
     //     // 清除指定缓存
     //     // wx.removeStorageSync('posts_Collected');
@@ -142,4 +172,24 @@ Page({
     //     wx.clearStorageSync();
     // }
     // 小程序缓存的上线不能超过10MB
+    onMusicTap(event) {
+        // let currentPostId = this.data.currentPostId;
+        let postData = postsData.postList[this.data.currentPostId];
+        let isPlayingMusic = this.data.isPlayingMusic;
+        if (isPlayingMusic) {
+            wx.pauseBackgroundAudio();
+            this.setData({
+                isPlayingMusic: false
+            })
+        } else {
+            wx.playBackgroundAudio({
+                dataUrl: postData.music.url,
+                title: postData.music.title,
+                coverImgUrl: postData.music.coverImg
+            })
+            this.setData({
+                isPlayingMusic: true
+            })
+        }
+    }
 })

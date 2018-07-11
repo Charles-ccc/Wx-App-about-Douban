@@ -65,7 +65,7 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
     margin-left: 30rpx;
-    border-radius: 50%; 
+    border-radius: 50%;
     border: none;
 }
 
@@ -101,7 +101,8 @@
     height: 110rpx;
     position: absolute;
     left: 50%;
-    margin-left: -51rpx;
+    /* margin-left: -51rpx; */
+    transform: translate(-50%);
     top: 180rpx;
     margin-top: 20rpx;
 }
