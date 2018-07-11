@@ -1,11 +1,12 @@
-var postsData = require('../../../data/posts-data.js')
-
+const postsData = require('../../../data/posts-data.js')
+const app = getApp(); // 拿到app.js的全局变量
 Page({
     data: {
         // 可以通过设置其他的变量来传递参数
         isPlayingMusic: false
     },
     onLoad(option) {
+        // let globalData = app.globalData;
         var postId = option.id; // 从url中拿到id
         this.data.currentPostId = postId; //将postId添加至data中，供其他方法使用
         // var postData = postsData.postList[postId];
@@ -36,7 +37,6 @@ Page({
             wx.setStorageSync('posts_Collected', postsCollected);
         }
 
-
         // 在没有服务器的时候，可以直接存在缓存中
         // setStorage getStorage 异步 机上Sync就是同步
         // wx.setStorageSync('key', '火箭总冠军')
@@ -50,19 +50,34 @@ Page({
             withShareTicket: true
         });
 
+        this.setMusicM();
+
+        // 获取全局变量中的播放状态,同时修改页面中对状态作出修改
+        if (app.globalData.g_isPlayingMusic) {
+            // this.data.isPlayingMusic = true;
+            this.setData({
+                isPlayingMusic: true
+            })
+        }
+    },
+    setMusicM() {
         // 监听音乐 总控开关同步页面开关
         let that = this;
         wx.onBackgroundAudioPlay(() => {
             that.setData({
-                isPlayingMusic: true
-            })
+                    isPlayingMusic: true
+                })
+                // 修改全局播放状态
+            app.globalData.g_isPlayingMusic = true
         })
         wx.onBackgroundAudioPause(() => {
             that.setData({
                 isPlayingMusic: false
             })
+            app.globalData.g_isPlayingMusic = false
         })
     },
+
     // 收藏功能
     onColletionTap(event) {
         let postsCollected = wx.getStorageSync('posts_Collected');
@@ -193,3 +208,6 @@ Page({
         }
     }
 })
+
+// 播放功能的完善之路
+// 从一开始的使用本地资源播放，到加载json来根据不同id播放不同音乐，然后讲总控开关的播放和暂停状态与页面中的播放暂停状态保持一致，调取了wx.onBackgroundAudioPlay，将isPlayingMusic的状态修改。然后是播放的时候，图标和背景图同时会切换。然后在appjs中设置了全局变量，为了解决播放时退出后再进来的时候，图标又显示未播放，原因是因为重新加载了一次onLoad，所以利用全局变量，来同步页面中的播放状态，并且在点击播放按钮的时候，同时修改全局播放状态的变量
