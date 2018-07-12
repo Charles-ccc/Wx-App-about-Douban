@@ -19,5 +19,14 @@ Page({
             // 与原生的页面跳转一致，url后跟随参数跳转
             url: "post-detail/post-detail?id=" + postId
         })
+    },
+    onSwiperTap(event) {
+        var postId = event.target.dataset.postid;
+        // target 当前点击的组件 ---指的是image
+        // currentTarget 事件捕获的组件 ---指的是swiper
+        wx.navigateTo({
+            // 与原生的页面跳转一致，url后跟随参数跳转
+            url: "post-detail/post-detail?id=" + postId
+        })
     }
 })

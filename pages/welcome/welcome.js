@@ -4,44 +4,19 @@ Page({
 
     },
     //事件处理函数
-    bindViewTap: function(event) {
+    bindViewTap(event) {
         // wx.navigateTo({
-        //   url: '../posts/post'
+        //     url: '../post/post'
         // });
-        // console.log("tap")
+        // 页面平行跳转，不可回跳。但是跳转进去后tabBar消失了
+        // wx.redirectTo({
+        //     url: '../movies/movies'
+        // });
 
-        // 页面平行跳转，不可回跳
-        wx.redirectTo({
+        // 微信不再能用navigateTo 或者 redirectTo 跳转带有tabBar的页面
+        // 必须使用wx.switchTab
+        wx.switchTab({
             url: '../post/post'
-        });
-
-        // wx.navigateTo({
-        //   url: 'String',
-        //   success: function(res){
-        //     // success
-        //   },
-        //   fail: function() {
-        //     // fail
-        //   },
-        //   complete: function() {
-        //     // complete成功失败都执行
-        //   }
-        // });
-
-
-
-    },
-    onteztop: function() {
-        //  console.log(" ssssonteztop")
-    },
-
-    onHide: function() {
-        // 当页面隐藏
-        // console.log("onHide")
-    },
-    onUnload: function() {
-        //当页面关闭
-        // console.log("onUnload")
+        })
     }
-
 })

@@ -1,0 +1,10 @@
+<template name="starsTemplate">
+    <view>
+        <image src="/images/icon/star.png"></image>
+        <image src="/images/icon/star.png"></image>
+        <image src="/images/icon/star.png"></image>
+        <image src="/images/icon/star.png"></image>
+        <image src="/images/icon/none-star.png"></image>
+        <text>8.0</text>
+    </view>
+</template>

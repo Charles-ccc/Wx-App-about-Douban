@@ -53,7 +53,7 @@ Page({
         this.setMusicM();
 
         // 获取全局变量中的播放状态,同时修改页面中对状态作出修改
-        if (app.globalData.g_isPlayingMusic) {
+        if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId) {
             // this.data.isPlayingMusic = true;
             this.setData({
                 isPlayingMusic: true
@@ -68,13 +68,17 @@ Page({
                     isPlayingMusic: true
                 })
                 // 修改全局播放状态
-            app.globalData.g_isPlayingMusic = true
+            app.globalData.g_isPlayingMusic = true;
+            // 修改全局变量中播放音乐的id
+            app.globalData.g_currentMusicPostId = that.data.currentPostId
         })
         wx.onBackgroundAudioPause(() => {
             that.setData({
                 isPlayingMusic: false
             })
-            app.globalData.g_isPlayingMusic = false
+            app.globalData.g_isPlayingMusic = false;
+            // 暂停时，将全局变量置空
+            app.globalData.g_currentMusicPostId = null;
         })
     },
 
@@ -95,7 +99,7 @@ Page({
         // })
         this.showToast(postsCollected, postCollected); // 必须加上this,否则报错
     },
-    // 异步使用getStorage
+    // 演示，异步使用getStorage
     // getPostsCollectedAsy () {
     //     var that = this;
     //     wx.getStorage({
@@ -129,7 +133,6 @@ Page({
     //             })
     //         }
     //     })
-
     // },
     onShareAppMessage(res) {
         let that = this;
@@ -210,4 +213,9 @@ Page({
 })
 
 // 播放功能的完善之路
-// 从一开始的使用本地资源播放，到加载json来根据不同id播放不同音乐，然后讲总控开关的播放和暂停状态与页面中的播放暂停状态保持一致，调取了wx.onBackgroundAudioPlay，将isPlayingMusic的状态修改。然后是播放的时候，图标和背景图同时会切换。然后在appjs中设置了全局变量，为了解决播放时退出后再进来的时候，图标又显示未播放，原因是因为重新加载了一次onLoad，所以利用全局变量，来同步页面中的播放状态，并且在点击播放按钮的时候，同时修改全局播放状态的变量
+// 从一开始的使用本地资源播放，到加载json来根据不同id播放不同音乐，然后讲总控开关的播放和暂停状态与页面中的播放暂停状态保持一致，调取了wx.onBackgroundAudioPlay，将isPlayingMusic的状态修改。然后是播放的时候，图标和背景图同时会切换。然后在appjs中设置了全局状态为false，为了解决播放时退出后再进来的时候，图标又显示未播放，原因是因为重新加载了一次onLoad，所以利用全局变量，来同步页面中的播放状态，并且在点击播放按钮的时候，同时修改全局播放状态的变量
+
+
+// 在id=1的页面播放时，回退一层，进入id=2的页面，此时页面中的播放图标是显示播放中，但是播放是id=1的页面中的音乐，所以不同页面状态的图标不对。
+//原因：在1页面中播放之后，g_isPlayingMusic会设置为true，此时进入2页面，重新经过onLoad，所以读取到g_isPlayingMusic还是为true，所以会导致进入其他页面还是会显示播放状态。
+// 解决：在appjs中设置一个播放postId全局变量，默认为空，然后在监听播放和暂停的Api中修改全局的postId，并且在onLoad中针对全局进行判断app.globalData.g_currentMusicPostId === postId，如果为true，isPlayingMusic为true，即显示播放图标

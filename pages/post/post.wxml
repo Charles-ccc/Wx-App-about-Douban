@@ -1,15 +1,21 @@
 <import src="post-item/post-item.wxml" />
 <view>
-  <swiper indicator-dots="true" indicator-active-color="#fff" autoplay='true' interval='5000'>
-    <swiper-item><image src="/images/wx.png"></image></swiper-item>
-    <swiper-item><image src="/images/iqiyi.png"></image></swiper-item>
-    <swiper-item><image src="/images/vr.png"></image></swiper-item>
-  </swiper>
-  <!-- // 点击跳转不能写在template标签上，因为渲染时，template不会显示
+    <swiper catchtap="onSwiperTap" indicator-dots="true" indicator-active-color="#fff" autoplay='true' interval='5000'>
+        <swiper-item>
+            <image src="/images/wx.png" data-postId='3'></image>
+        </swiper-item>
+        <swiper-item>
+            <image src="/images/iqiyi.png" data-postId='5'></image>
+        </swiper-item>
+        <swiper-item>
+            <image src="/images/vr.png" data-postId='4'></image>
+        </swiper-item>
+    </swiper>
+    <!-- // 点击跳转不能写在template标签上，因为渲染时，template不会显示
   // 根据id跳转到不同的产品详情页，属性前需要加上data- -->
-  <block wx:for="{{post_key}}" wx:for-item="item" wx:key="unique">
-    <view catchtap="onPosttap" data-postId="{{item.postId}}">
-      <template is="post-item" data="{{...item}}"/>
-    </view>
-  </block>
+    <block wx:for="{{post_key}}" wx:for-item="item" wx:key="unique">
+        <view catchtap="onPosttap" data-postId="{{item.postId}}">
+            <template is="post-item" data="{{...item}}" />
+        </view>
+    </block>
 </view>

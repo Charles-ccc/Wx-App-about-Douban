@@ -35,7 +35,8 @@ App({
     // },
     globalData: {
         userInfo: null,
-        g_isPlayingMusic: false // 全局播放的状态
+        g_isPlayingMusic: false, // 全局播放的状态
+        g_currentMusicPostId: null // 哪一个音乐在播放
     }
     // onLaunch() {
 
