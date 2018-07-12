@@ -5,7 +5,7 @@
             <text>正在热映</text>
             <view>
                 <text>更多</text>
-                <image src="arrow-right.png"></image>
+                <image src="/images/icon/arrow-right.png"></image>
             </view>
         </view>
         <template is="movieTemplate" />
