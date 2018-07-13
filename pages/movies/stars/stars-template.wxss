@@ -1,21 +1,24 @@
 /* pages/stars.wxss */
-.star-container{
+
+.stars-container {
     display: flex;
-    display: -webkit-flex; 
-    flex-direction:row;
+    flex-direction: row;
 }
-.stars{
+
+.stars {
     display: flex;
-    display: -webkit-flex; 
-    flex-direction:row;
-    height:17rpx;
+    flex-direction: row;
+    height: 17rpx;
     margin-right: 24rpx;
+    margin-top: 6rpx;
 }
-.stars image{
+
+.stars image {
     padding-left: 3rpx;
     height: 17rpx;
     width: 17rpx;
 }
-.star-score{
-    color:#1f3463;
+
+.star-score {
+    color: #1f3463;
 }
