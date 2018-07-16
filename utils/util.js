@@ -1,4 +1,29 @@
-const formatTime = date => {
+  // 此方法没有半颗星的状态
+  // 原理是将 5 => [1,1,1,1,1] ; 3.5 => [1,1,1,0,0]
+  function convertToStarsArray(stars) {
+    var num = stars.toString().substring(0,1);
+    var array = [];
+    for(var i = 1;i <= 5; i++){
+      if(i<=num){
+        array.push(1)
+      }else{
+        array.push(0)
+      }
+    }
+    return array;
+  }
+  
+  module.exports = {
+    convertToStarsArray: convertToStarsArray
+  }
+  
+  
+  
+  
+  
+  
+  
+  const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()

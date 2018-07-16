@@ -10,9 +10,10 @@
                 </view>
             </view>
             <view class="movies-container">
-                <template is="movieTemplate" />
-                <template is="movieTemplate" />
-                <template is="movieTemplate" />
+                <!-- 从上而下的数据传递，template处循环接收数据 -->
+                <block wx:for="{{movies}}" wx:for-item="movie" wx:key="index">
+                    <template is="movieTemplate" data="{{...movie}}"/>
+                </block>
             </view>
         </view>
     </view>

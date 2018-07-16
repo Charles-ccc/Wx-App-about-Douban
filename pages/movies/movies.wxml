@@ -2,12 +2,14 @@
 
 <view class="container">
     <view class="movies-template">
-        <template is="movieListTemplate" />
+        <template is="movieListTemplate" data="{{...inTheaters}}" />
+        <!-- 把数据传递到tempalte里面，同样是用data加双大括号的形式， movies是定义的数据数组 -->
+        <!-- 编写template时是自下而上，传递数据时是自上而上 -->
     </view>
     <view class="movies-template">
-        <template is="movieListTemplate" />
+        <template is="movieListTemplate" data="{{...comingSoon}}" />
     </view>
     <view class="movies-template">
-        <template is="movieListTemplate" />
+        <template is="movieListTemplate" data="{{...top250}}" />
     </view>
 </view>

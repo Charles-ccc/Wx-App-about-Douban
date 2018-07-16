@@ -1,16 +1,27 @@
+let util = require('../../utils/util.js')
+
 let app = getApp();
 
 Page({
+    data: {
+        // 作为key 如果是对象，一定要给一个空值
+        inTheaters: {},
+        comingSoon: {},
+        top250: {}
+    },
     onLoad(event) {
+        // 从第0页的前三条数据
         let inTheatersUrl = app.globalData.doubanBase + "/v2/movie/in_theaters" + "?start=0&count=3";
         let comingSoonUrl = app.globalData.doubanBase + "/v2/movie/coming_soon" + "?start=0&count=3";
         let top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
 
-        this.getMovieListData(inTheatersUrl);
-        this.getMovieListData(comingSoonUrl);
-        this.getMovieListData(top250Url);
+        // 为了能区别找到相对应的数据对象，在后面增加key
+        this.getMovieListData(inTheatersUrl, "inTheaters");
+        this.getMovieListData(comingSoonUrl, "comingSoon");
+        this.getMovieListData(top250Url, "top250");
     },
-    getMovieListData(url) {
+    getMovieListData(url, settedKey) {
+        var that = this;
         wx.request({
             url: url,
             data: {},
@@ -20,10 +31,40 @@ Page({
             },
             success(res) {
                 console.log(res);
+                that.processDoubanData(res.data, settedKey);
             },
             fail(error) {
                 console.log(error)
             }
         })
+    },
+    processDoubanData(moviesDouban, settedKey) {
+        let movies = [];
+        for (let idx in moviesDouban.subjects) {
+            var subject = moviesDouban.subjects[idx];
+            var title = subject.title;
+            if (title.length >= 6) {
+                title = title.substring(0, 6) + '...';
+            }
+            var temp = {
+                stars = util.convertToStarsArray(subject.rating.stars),
+                title: title,
+                average: subject.rating.average,
+                coverageUrl: subject.images.large,
+                movieId: subject.id
+            }
+            movies.push(temp)
+        }
+        // 要根据传递的settedKey变量，针对不同对象进行动态赋值
+        var readyData = {};
+        readyData[settedKey] = {
+            // 设置属性值，movie-list-template方便调用
+            movies: movies
+        };
+        this.setData(readyData);
+        // this.setData({
+        //     movies: movies
+        // })
+        console.log(movies);
     }
 })
