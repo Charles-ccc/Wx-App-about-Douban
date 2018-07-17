@@ -1,5 +1,4 @@
 let util = require('../../utils/util.js')
-
 let app = getApp();
 
 Page({
@@ -16,11 +15,18 @@ Page({
         let top250Url = app.globalData.doubanBase + "/v2/movie/top250" + "?start=0&count=3";
 
         // 为了能区别找到相对应的数据对象，在后面增加key
-        this.getMovieListData(inTheatersUrl, "inTheaters");
-        this.getMovieListData(comingSoonUrl, "comingSoon");
-        this.getMovieListData(top250Url, "top250");
+        this.getMovieListData(inTheatersUrl, "inTheaters", "正在热映");
+        this.getMovieListData(comingSoonUrl, "comingSoon", "即将上映");
+        this.getMovieListData(top250Url, "top250", "豆瓣Top250");
     },
-    getMovieListData(url, settedKey) {
+
+    onMoreTap(event) {
+        var category = event.currentTarget.dataset.category;
+        wx.navigateTo({
+            url: "more-movie/more-movie?category=" + category
+        })
+    },
+    getMovieListData(url, settedKey, categoryTitle) {
         var that = this;
         wx.request({
             url: url,
@@ -30,15 +36,15 @@ Page({
                 'Content-Type': 'json'
             },
             success(res) {
-                console.log(res);
-                that.processDoubanData(res.data, settedKey);
+                //console.log(res);
+                that.processDoubanData(res.data, settedKey, categoryTitle);
             },
             fail(error) {
                 console.log(error)
             }
         })
     },
-    processDoubanData(moviesDouban, settedKey) {
+    processDoubanData(moviesDouban, settedKey, categoryTitle) {
         let movies = [];
         for (let idx in moviesDouban.subjects) {
             var subject = moviesDouban.subjects[idx];
@@ -47,7 +53,8 @@ Page({
                 title = title.substring(0, 6) + '...';
             }
             var temp = {
-                stars = util.convertToStarsArray(subject.rating.stars),
+                // 依赖require内的函数
+                stars: util.convertToStarsArray(subject.rating.stars),
                 title: title,
                 average: subject.rating.average,
                 coverageUrl: subject.images.large,
@@ -59,7 +66,8 @@ Page({
         var readyData = {};
         readyData[settedKey] = {
             // 设置属性值，movie-list-template方便调用
-            movies: movies
+            movies: movies,
+            categoryTitle: categoryTitle
         };
         this.setData(readyData);
         // this.setData({

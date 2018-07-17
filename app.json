@@ -3,15 +3,12 @@
         "pages/movies/movies",
         "pages/welcome/welcome",
         "pages/post/post",
-        "pages/post/post-detail/post-detail"
-
-
-
+        "pages/post/post-detail/post-detail",
+        "pages/movies/more-movie/more-movie"
     ],
     "window": {
         "backgroundTextStyle": "normal",
         "navigationBarBackgroundColor": "#405f80",
-        "navigationBarTitleText": "叮叮🐱 ",
         "navigationBarTextStyle": "#fff"
     },
     "tabBar": {

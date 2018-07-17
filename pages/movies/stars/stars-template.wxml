@@ -1,12 +1,13 @@
 <template name="starsTemplate">
     <view class="stars-container">
         <view class="stars">
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/none-star.png"></image>
+            <block wx:for="{{stars}}" wx:for-item="i" wx:key="index">
+                <!-- i 可能要么是1 或者是0 -->
+                <image wx:if="{{i}}" src="/images/icon/star.png"></image>
+                <image wx:else src="/images/icon/none-star.png"></image>
+                <!-- 如果是判断半星，比如半星是2来表示，可以用 wx:elif==2 -->
+            </block>
         </view>
-        <text class="star-score">{{average}}</text>
+        <text class="star-score">{{score}}</text>
     </view>
 </template>

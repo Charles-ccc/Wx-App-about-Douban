@@ -1,0 +1,12 @@
+<import src="../movie/movie-template.wxml" />
+<template name="moviesGridTemplate">
+    <!-- {{movies}} 是more-movie.js里的 -->
+    <view class="grid-container">
+        <block wx:for="{{movies}}" wx:for-item="movie" wx:key="item">
+            <!-- 根据数据渲染movie-template -->
+            <view class="single-view-container">
+                <template is="movieTemplate" data="{{...movie}}" />
+            </view>
+        </block>
+    </view>
+</template>
