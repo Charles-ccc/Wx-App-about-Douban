@@ -1,9 +1,11 @@
 let util = require('../../../utils/util.js');
-let app = getApp();
+let app = getApp(); // 引用全局变量
 Page({
     data: {
         movies: "",
-        navigateTitle: ""
+        navigateTitle: "",
+        requestUrl: "",
+        totalCount: 0
     },
     onLoad(options) {
         var category = options.category;
@@ -11,6 +13,7 @@ Page({
         // 将 category 保存至data中，方便其他位置调用
         this.data.navigateTitle = category;
         var dataUrl = "";
+        // 根据所点击的category来判断
         switch (category) {
             case "正在热映":
                 dataUrl = app.globalData.doubanBase + "/v2/movie/in_theaters";
@@ -22,8 +25,15 @@ Page({
                 dataUrl = app.globalData.doubanBase + "/v2/movie/top250";
                 break;
         }
+        this.data.requestUrl = dataUrl;
         // console.log(dataUrl)
+        // 获取数据
         util.http(dataUrl, this.processDoubanData)
+    },
+    onScrollLower(event) {
+        var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
+        // 获取数据 改变了参数
+        util.http(nextUrl, this.processDoubanData)
     },
     processDoubanData(moviesDouban) {
         // moviesDouban 是 util中函数返回出来的 callBack(data)
@@ -45,6 +55,8 @@ Page({
             }
             movies.push(temp)
         }
+        // 每在数据绑定之前，都给totalCount 加20
+        this.data.totalCount += 20;
         this.setData({
                 movies: movies
             })

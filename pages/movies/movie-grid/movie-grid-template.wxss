@@ -5,6 +5,8 @@
 }
 
 .grid-container {
+    /* 上滑加载必须加上高度 */
+    height: 1300rpx;
     margin-top: 36rpx;
     margin-left: 8rpx;
 }

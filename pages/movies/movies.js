@@ -44,7 +44,11 @@ Page({
             }
         })
     },
+
+    // 处理豆瓣返回的数据，抓取需要的
+    // moviesDouban就是接收从豆瓣取回的res.data
     processDoubanData(moviesDouban, settedKey, categoryTitle) {
+        // console.log(moviesDouban)
         let movies = [];
         for (let idx in moviesDouban.subjects) {
             var subject = moviesDouban.subjects[idx];
@@ -66,13 +70,13 @@ Page({
         var readyData = {};
         readyData[settedKey] = {
             // 设置属性值，movie-list-template方便调用
-            movies: movies,
+            movies: movies, // movies是上面的movies数组
             categoryTitle: categoryTitle
         };
         this.setData(readyData);
         // this.setData({
         //     movies: movies
         // })
-        console.log(movies);
+        // console.log(movies);
     }
 })

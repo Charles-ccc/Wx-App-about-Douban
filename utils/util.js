@@ -17,7 +17,6 @@
   function http(url, callBack) {
       wx.request({
           url: url,
-          data: {},
           method: 'GET',
           header: {
               'Content-Type': 'json'
