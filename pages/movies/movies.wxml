@@ -1,9 +1,11 @@
 <import src="movie-list/movie-list-template.wxml" />
+<import src="movie-grid/movie-grid-template.wxml" />
 <view class="search">
     <icon type="search" class="search-img" size="13" color="#405f80"></icon>
     <input type="text" placeholder="哆啦A梦剧场版" placeholder-class="placeholder" bindfocus="onBindFocus" bindchange="onBindChange" />
+    <image class="xx-img" wx:if="{{searchPanelShow}}" src="/images/icon/xx.png" bindtap="onCancelImgTap"></image>
 </view>
-<view class="container">
+<view class="container" wx:if="{{containerShow}}">
     <view class="movies-template">
         <template is="movieListTemplate" data="{{...inTheaters}}" />
         <!-- 把数据传递到tempalte里面，同样是用data加双大括号的形式， movies是定义的数据数组 -->
@@ -15,4 +17,7 @@
     <view class="movies-template">
         <template is="movieListTemplate" data="{{...top250}}" />
     </view>
+</view>
+<view class="search-panel" wx:if="{{searchPanelShow}}">
+    <template is="moviesGridTemplate" />
 </view>

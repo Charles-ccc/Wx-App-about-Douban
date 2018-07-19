@@ -25,9 +25,19 @@
 .placeholder {
     font-size: 14px;
     color: #d1d1d1;
-    margin-left: 20rpx;
+    margin-left: 10rpx;
 }
 
 .movies-template {
     margin-bottom: 30rpx;
+}
+
+.search-panel{
+    position: absolute;
+    top: 80rpx; 
+}
+.xx-img{
+    width:30rpx;
+    height: 30rpx;
+    margin: auto 0 auto 10rpx;
 }

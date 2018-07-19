@@ -6,7 +6,9 @@ Page({
         // 作为key 如果是对象，一定要给一个空值
         inTheaters: {},
         comingSoon: {},
-        top250: {}
+        top250: {},
+        containerShow: true,
+        searchPanelShow: false
     },
     onLoad(event) {
         // 从第0页的前三条数据
@@ -44,7 +46,6 @@ Page({
             }
         })
     },
-
     // 处理豆瓣返回的数据，抓取需要的
     // moviesDouban就是接收从豆瓣取回的res.data
     processDoubanData(moviesDouban, settedKey, categoryTitle) {
@@ -78,5 +79,19 @@ Page({
         //     movies: movies
         // })
         // console.log(movies);
+    },
+    // 通过控制变量来控制搜索列表页和电影页的显示隐藏，wxml中wx:if判断
+    onBindFocus(event){
+        this.setData({
+            containerShow: false,
+            searchPanelShow: true
+        })
+    },
+    onCancelImgTap(event){
+        this.setData({
+            containerShow: true,
+            searchPanelShow: false
+        })
     }
+
 })
