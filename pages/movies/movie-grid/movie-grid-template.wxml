@@ -1,12 +1,24 @@
 <import src="../movie/movie-template.wxml" />
 <template name="moviesGridTemplate">
     <!-- {{movies}} 是more-movie.js里的 -->
-    <scroll-view class="grid-container"  scroll-y="true" scroll-x="false" bindscrolltolower="onScrollLower">
+    <!-- scroll-view不再支持下拉刷新 onPullDownRefresh() -->
+    <!-- https://www.zhihu.com/search?type=content&q=scroll-view -->
+    
+    <!-- <scroll-view class="grid-container"  scroll-y="true" scroll-x="false" bindscrolltolower="onScrollLower">
+        <block wx:for="{{movies}}" wx:for-item="movie" wx:key="item">
+            根据数据渲染movie-template
+            <view class="single-view-container">
+                <template is="movieTemplate" data="{{...movie}}" />
+            </view>
+        </block>
+    </scroll-view> -->
+
+    <view class="grid-container"  scroll-y="true" scroll-x="false" bindscrolltolower="onScrollLower">
         <block wx:for="{{movies}}" wx:for-item="movie" wx:key="item">
             <!-- 根据数据渲染movie-template -->
             <view class="single-view-container">
                 <template is="movieTemplate" data="{{...movie}}" />
             </view>
         </block>
-    </scroll-view>
+    </view>
 </template>

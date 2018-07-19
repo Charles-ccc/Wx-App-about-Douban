@@ -1,5 +1,8 @@
 <import src="movie-list/movie-list-template.wxml" />
-
+<view class="search">
+    <icon type="search" class="search-img" size="13" color="#405f80"></icon>
+    <input type="text" placeholder="哆啦A梦剧场版" placeholder-class="placeholder" bindfocus="onBindFocus" bindchange="onBindChange" />
+</view>
 <view class="container">
     <view class="movies-template">
         <template is="movieListTemplate" data="{{...inTheaters}}" />
