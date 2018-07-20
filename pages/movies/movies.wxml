@@ -2,7 +2,7 @@
 <import src="movie-grid/movie-grid-template.wxml" />
 <view class="search">
     <icon type="search" class="search-img" size="13" color="#405f80"></icon>
-    <input type="text" placeholder="哆啦A梦剧场版" placeholder-class="placeholder" bindfocus="onBindFocus" bindchange="onBindChange" />
+    <input type="text" placeholder="哆啦A梦剧场版" placeholder-class="placeholder" bindfocus="onBindFocus" bindconfirm="onBindConfirm" confirm-type="done" />
     <image class="xx-img" wx:if="{{searchPanelShow}}" src="/images/icon/xx.png" bindtap="onCancelImgTap"></image>
 </view>
 <view class="container" wx:if="{{containerShow}}">
@@ -19,5 +19,6 @@
     </view>
 </view>
 <view class="search-panel" wx:if="{{searchPanelShow}}">
-    <template is="moviesGridTemplate" />
+    <template is="moviesGridTemplate" data="{{...searchResult}}" />
 </view>
+<!-- bindchange和bindblur 是有区别的，具体在于退出后输入框不清空，重新回车的话，bindchang是不会执行搜索的 -->

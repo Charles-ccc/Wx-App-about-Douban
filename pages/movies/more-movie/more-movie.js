@@ -51,6 +51,8 @@ Page({
         // 将movies置空，将状态改为true，否则每次刷新都会加载相同的20条数据
         this.data.movies = {};
         this.data.Empty = true;
+        // 每次刷新都是从0开始
+        this.data.totalCount = 0;
         util.http(refreshUrl, this.processDoubanData);
         wx.showNavigationBarLoading(); // 加载等待图
     },

@@ -73,6 +73,15 @@ Page({
             app.globalData.g_currentMusicPostId = that.data.currentPostId
         })
         wx.onBackgroundAudioPause(() => {
+                that.setData({
+                    isPlayingMusic: false
+                })
+                app.globalData.g_isPlayingMusic = false;
+                // 暂停时，将全局变量置空
+                app.globalData.g_currentMusicPostId = null;
+            })
+            // 音乐播放完之后，图标状态切换回来
+        wx.onBackgroundAudioStop(() => {
             that.setData({
                 isPlayingMusic: false
             })

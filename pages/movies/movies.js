@@ -8,7 +8,8 @@ Page({
         comingSoon: {},
         top250: {},
         containerShow: true,
-        searchPanelShow: false
+        searchPanelShow: false,
+        searchResult: {}
     },
     onLoad(event) {
         // 从第0页的前三条数据
@@ -26,6 +27,12 @@ Page({
         var category = event.currentTarget.dataset.category;
         wx.navigateTo({
             url: "more-movie/more-movie?category=" + category
+        })
+    },
+    onMovieTap(event) {
+        var movieId = event.currentTarget.dataset.movieid;
+        wx.navigateTo({
+            url: "movie-detail/movie-detail?id=" + movieId
         })
     },
     getMovieListData(url, settedKey, categoryTitle) {
@@ -81,17 +88,25 @@ Page({
         // console.log(movies);
     },
     // 通过控制变量来控制搜索列表页和电影页的显示隐藏，wxml中wx:if判断
-    onBindFocus(event){
+    onBindFocus(event) {
         this.setData({
             containerShow: false,
             searchPanelShow: true
         })
     },
-    onCancelImgTap(event){
+    onCancelImgTap(event) {
         this.setData({
             containerShow: true,
-            searchPanelShow: false
+            searchPanelShow: false,
+            // 退出清空搜索内容
+            searchResult: {}
         })
+    },
+    onBindConfirm(event) {
+        // 获取input的value
+        var text = event.detail.value;
+        var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+        this.getMovieListData(searchUrl, "searchResult", "")
     }
 
 })

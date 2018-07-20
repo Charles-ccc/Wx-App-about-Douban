@@ -13,6 +13,27 @@
       return array;
   }
 
+  // 把演员名用斜线分割开
+  function convertToCastString(casts) {
+      var castsjoin = "";
+      for (var idx in casts) {
+          castsjoin = castsjoin + casts[idx].name + " / ";
+      }
+      return castsjoin.substring(0, castsjoin.length - 2)
+  }
+  // 演员头像和名字
+  function convertToCastInfos(casts) {
+      var castsArray = []
+      for (var idx in casts) {
+          var cast = {
+              img: casts[idx].avatars ? casts[idx].avatars.large : "",
+              name: casts[idx].name
+          }
+          castsArray.push(cast);
+      }
+      return castsArray;
+  }
+
   // 注意，一定要有callBack
   function http(url, callBack) {
       wx.request({
@@ -50,5 +71,7 @@
   module.exports = {
       formatTime: formatTime,
       convertToStarsArray: convertToStarsArray,
-      http: http
+      convertToCastString: convertToCastString,
+      convertToCastInfos: convertToCastInfos,
+      http: http,
   }

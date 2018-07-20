@@ -1,4 +1,5 @@
 @import "movie-list/movie-list-template.wxss";
+@import "movie-grid/movie-grid-template.wxss";
 .container {
     background-color: #f2f2f2;
 }
@@ -32,12 +33,13 @@
     margin-bottom: 30rpx;
 }
 
-.search-panel{
+.search-panel {
     position: absolute;
-    top: 80rpx; 
+    top: 80rpx;
 }
-.xx-img{
-    width:30rpx;
+
+.xx-img {
+    width: 30rpx;
     height: 30rpx;
     margin: auto 0 auto 10rpx;
 }
