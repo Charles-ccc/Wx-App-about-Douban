@@ -56,7 +56,12 @@ Page({
         util.http(refreshUrl, this.processDoubanData);
         wx.showNavigationBarLoading(); // 加载等待图
     },
-
+    onMovieTap(event) {
+        var movieId = event.currentTarget.dataset.movieid;
+        wx.navigateTo({
+            url: "../movie-detail/movie-detail?id=" + movieId
+        })
+    },
     processDoubanData(moviesDouban) {
         // moviesDouban 是 util中函数返回出来的 callBack(data)
         console.log(moviesDouban);
