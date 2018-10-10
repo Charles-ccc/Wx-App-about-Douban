@@ -1,5 +1,5 @@
 let util = require('../../utils/util.js')
-let app = getApp();
+let app = getApp();// 引用全局变量
 
 Page({
     data: {
@@ -39,7 +39,6 @@ Page({
         var that = this;
         wx.request({
             url: url,
-            data: {},
             method: 'GET',
             header: {
                 'Content-Type': 'json'

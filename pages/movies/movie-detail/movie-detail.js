@@ -14,7 +14,7 @@ Page({
         // util.http(url, this.processDoubanData);
         var movie = new Movie(url);
         // var that = this;
-        movie.getmovieData((movie) => {
+        movie.getMovieData((movie) => {
             // (movie) 是从Movie.js中返回的this.cb(movie)
             // 存在异步，所以需要回调函数
             // that.setData({

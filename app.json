@@ -1,8 +1,9 @@
 {
     "pages": [
+        "pages/news/news",
+        "pages/welcome/welcome",
         "pages/post/post",
         "pages/movies/movies",
-        "pages/welcome/welcome",
         "pages/movies/movie-detail/movie-detail",
         "pages/post/post-detail/post-detail",
         "pages/movies/more-movie/more-movie"
@@ -24,6 +25,12 @@
             "text": "电影",
             "selectedIconPath": "images/tab/dianying_hl.png",
             "iconPath": "images/tab/dianying.png"
+        },
+        {
+          "pagePath": "pages/news/news",
+          "text": "新闻",
+          "selectedIconPath": "images/tab/ciwei_hl.png",
+          "iconPath": "images/tab/ciwei.png"
         }]
     }
 
