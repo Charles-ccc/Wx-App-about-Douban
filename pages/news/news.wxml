@@ -1,5 +1,18 @@
-<view>
-  <view class="container">
-    
+<view class='container'>
+  <view class="newsTop" wx:for="{{newsTop}}" wx:key="item">
+    <image src="{{item.imgsrc}}" class='topImg'></image>
+    <text class='topTitle'>{{item.title}}</text>
+  </view>
+  <view class='newsItem' wx:for="{{newsItem}}" wx:key="item">
+    <view class='newsInfo'>
+      <text class='itemTitle'>{{item.title}}</text>
+      <view class='itemDetail'>
+        <text class='pubtime'>{{item.ptime}}</text>
+        <text class='reply'>{{item.commentCount}}跟贴</text>
+      </view>
+    </view>
+    <view class='itemPic'>
+      <image src="{{item.imgsrc}}"></image>
+    </view>
   </view>
 </view>

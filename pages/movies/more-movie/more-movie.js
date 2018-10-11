@@ -85,13 +85,13 @@ Page({
 
         var totalMovies = {};
         //如果要绑定新加载的数据，那么需要同旧有的数据合并在一起
-        if (!this.data.Empty) {
+        if (!this.data.isEmpty) {
             // empty非空，不是第一次加载数据，所以要对数据进行叠加
             totalMovies = this.data.movies.concat(movies);
         } else {
             totalMovies = movies;
             // movies赋值给totalMovies之后，就不是第一次取数据了，所以false
-            this.data.Empty = false;
+            this.data.isEmpty = false;
         }
         this.setData({
                 movies: totalMovies

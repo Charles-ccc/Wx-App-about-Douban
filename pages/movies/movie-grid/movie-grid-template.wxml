@@ -13,7 +13,7 @@
         </block>
     </scroll-view> -->
 
-    <view class="grid-container"  scroll-y="true" scroll-x="false" bindscrolltolower="onScrollLower">
+    <view class="grid-container">
         <block wx:for="{{movies}}" wx:for-item="movie" wx:key="item">
             <!-- 根据数据渲染movie-template -->
             <view class="single-view-container">

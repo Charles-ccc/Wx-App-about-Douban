@@ -44,13 +44,13 @@
           },
           success(res) {
               callBack(res.data)
+            
           },
           fail(error) {
               console.log(error)
           }
       })
   }
-
 
   const formatTime = date => {
       const year = date.getFullYear()
@@ -73,5 +73,5 @@
       convertToStarsArray: convertToStarsArray,
       convertToCastString: convertToCastString,
       convertToCastInfos: convertToCastInfos,
-      http: http,
+      http: http
   }
