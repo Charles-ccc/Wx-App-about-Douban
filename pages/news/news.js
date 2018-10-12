@@ -3,10 +3,11 @@ let util = require('../../utils/util.js');
 Page({
   data:{
     startCount: 0,
+    requestUrl: 'https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/',
     isEmpty: true
   },
   onLoad(event) {
-    let newsUrl = 'https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/' + this.data.startCount + '-10.html'
+    let newsUrl = this.data.requestUrl + this.data.startCount + '-10.html'
     this.getNewsData(newsUrl)
   },
   getNewsData(newsUrl) {
@@ -62,10 +63,21 @@ Page({
       newsTop: newsTop,
       newsItem: totalNews
     })
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
+  },
+  onPullDownRefreash(event) {
+    let refreshUrl = this.data.requestUrl + this.data.startCount + '-10.html'
+    // 将movies置空，将状态改为true，否则每次刷新都会加载相同的20条数据
+    this.data.newsTop = [];
+    this.data.newsItem = [];
+    this.data.totalCount = 0;
+    util.http(refreshUrl, this.processDoubanData);
+    wx.showNavigationBarLoading(); // 加载等待图
   },
   onReachBottom: function (event) {
     this.data.startCount += 10;
-    var nextUrl = 'https://3g.163.com/touch/reconstruct/article/list/BA10TA81wangning/' + this.data.startCount + '-10.html';
+    var nextUrl = this.data.requestUrl + this.data.startCount + '-10.html';
     util.http(nextUrl, this.processNewsData)
     wx.showNavigationBarLoading()
   },

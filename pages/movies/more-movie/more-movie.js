@@ -40,7 +40,7 @@ Page({
     //     util.http(nextUrl, this.processDoubanData);
     //     wx.showNavigationBarLoading(); // 加载等待图
     // },
-    onReachBottom: function(event) {
+    onReachBottom: function(c) {
         var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
         util.http(nextUrl, this.processDoubanData)
         wx.showNavigationBarLoading()

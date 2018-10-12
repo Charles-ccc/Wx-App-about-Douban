@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "阅读🦔",
-  "navigationBarTextStyle": "#fff"
+  "navigationBarTextStyle": "#fff",
+    "enablePullDownRefresh": true
 }
